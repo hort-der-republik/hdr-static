@@ -1,0 +1,147 @@
+@import "tailwindcss" source(none);
+
+@plugin "@iconify/tailwind4";
+
+@plugin "@tailwindcss/typography";
+
+@source "../xslt";
+@source "../src";
+@source "../html/js";
+@source "../html/vendor/acdh-noske-search";
+
+@theme {
+	--color-primary: var(--color-blue-700);
+	--color-primary-hover: var(--color-blue-800);
+}
+
+@utility prose {
+	& :where(a) {
+		font-weight: var(--font-weight-semibold);
+	}
+
+	& :where(p, ul, ol, dl, blockquote, h1, h2, h3, h4, h5, h6) {
+		max-width: 75ch;
+	}
+}
+
+@utility container {
+	margin-inline: auto;
+	padding-inline: --spacing(4);
+}
+
+@layer base {
+	:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+	}
+
+	/* links everywhere look like links in .prose (typography plugin defaults) */
+	a {
+		color: var(--color-gray-900);
+		text-decoration-line: underline;
+		font-weight: var(--font-weight-medium);
+	}
+
+	h1 {
+		margin-bottom: --spacing(4);
+		font-size: var(--text-3xl);
+		line-height: var(--text-3xl--line-height);
+		font-weight: var(--font-weight-semibold);
+	}
+	h2 {
+		margin-bottom: --spacing(3);
+		font-size: var(--text-2xl);
+		line-height: var(--text-2xl--line-height);
+		font-weight: var(--font-weight-semibold);
+	}
+	h3 {
+		margin-bottom: --spacing(2);
+		font-size: var(--text-xl);
+		line-height: var(--text-xl--line-height);
+		font-weight: var(--font-weight-semibold);
+	}
+	h4 {
+		margin-bottom: --spacing(2);
+		font-size: var(--text-lg);
+		line-height: var(--text-lg--line-height);
+		font-weight: var(--font-weight-semibold);
+	}
+
+	/* sit icons on the text baseline */
+	[class*="icon-["] {
+		vertical-align: -0.125em;
+	}
+
+	/* add buffer above main frame for skip-link focus */
+	#main {
+		scroll-margin-top: --spacing(4);
+	}
+
+	/* interactive map in listplace.xsl */
+	div#map {
+		height: 50vh;
+	}
+}
+
+@layer components {
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: --spacing(2);
+		border: 1px solid transparent;
+		border-radius: var(--radius-md);
+		padding: --spacing(1.5) --spacing(3);
+		text-decoration-line: none;
+		cursor: pointer;
+	}
+	.btn-sm {
+		padding: --spacing(1) --spacing(2);
+		font-size: var(--text-sm);
+	}
+	.btn-primary {
+		background-color: var(--color-primary);
+		color: var(--color-white);
+		&:hover {
+			background-color: var(--color-primary-hover);
+			color: var(--color-white);
+		}
+	}
+	.btn-secondary {
+		background-color: var(--color-gray-600);
+		color: var(--color-white);
+		&:hover {
+			background-color: var(--color-gray-700);
+			color: var(--color-white);
+		}
+	}
+	.btn-outline {
+		border-color: var(--color-gray-400);
+		color: var(--color-gray-700);
+		&:hover {
+			background-color: var(--color-gray-100);
+			color: var(--color-gray-900);
+		}
+	}
+
+	.breadcrumb {
+		display: flex;
+		flex-wrap: wrap;
+		gap: --spacing(2);
+		margin-bottom: 0;
+		padding: 0;
+		list-style: none;
+		color: var(--color-gray-600);
+		& > li + li::before {
+			content: ">";
+			padding-inline-end: --spacing(2);
+			color: var(--color-gray-400);
+		}
+	}
+
+	.entity {
+		text-decoration-line: underline;
+		text-decoration-style: dotted;
+		cursor: pointer;
+	}
+}

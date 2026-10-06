@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="tei2html">
+    <!-- optional: ant -Dbase=/hdr-static/ -Dversion=<git sha>; defaults are set in xslt/partials/params.xsl -->
+    <property name="index" value="./data/meta/index.xml"/>
+    <property name="target" value="./html"/>
+    <property name="target_xml" value="./html/xml-view"/>
+
+    <!-- Saxon with the shared params; force: translations.csv and params are inputs ant doesn't track -->
+    <presetdef name="saxon">
+        <xslt force="true">
+            <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+            <classpath location="${basedir}/saxon/saxon9he.jar"/>
+            <param name="base" expression="${base}" if="base"/>
+            <param name="version" expression="${version}" if="version"/>
+        </xslt>
+    </presetdef>
+
+    <!-- all pages of one language, written to html/{lang}/ -->
+    <macrodef name="pages">
+        <attribute name="lang"/>
+        <sequential>
+            <saxon in="${index}" out="${target}/@{lang}/index.html" style="./xslt/index.xsl">
+                <param name="lang" expression="@{lang}"/>
+                <param name="page" expression="index.html"/>
+            </saxon>
+            <!-- <saxon style="./xslt/editions.xsl" basedir="./data/editions" destdir="${target}/@{lang}" includes="*.xml">
+                <param name="lang" expression="@{lang}"/>
+            </saxon> -->
+            <saxon style="./xslt/meta.xsl" basedir="./data/meta" destdir="${target}/@{lang}" includes="*.xml" excludes="index.xml">
+                <param name="lang" expression="@{lang}"/>
+            </saxon>
+            <!-- <saxon in="${index}" out="${target}/@{lang}/toc.html" style="./xslt/toc.xsl">
+                <param name="lang" expression="@{lang}"/>
+                <param name="page" expression="toc.html"/>
+            </saxon>
+            <saxon in="${index}" out="${target}/@{lang}/search.html" style="./xslt/search.xsl">
+                <param name="lang" expression="@{lang}"/>
+                <param name="page" expression="search.html"/>
+            </saxon>
+            <saxon in="${index}" out="${target}/@{lang}/noske-search.html" style="./xslt/noske-search.xsl">
+                <param name="lang" expression="@{lang}"/>
+                <param name="page" expression="noske-search.html"/>
+            </saxon> -->
+            <saxon in="./data/imprint.xml" out="${target}/@{lang}/imprint.html" style="./xslt/imprint.xsl">
+                <param name="lang" expression="@{lang}"/>
+                <param name="page" expression="imprint.html"/>
+            </saxon>
+            <!-- <saxon in="./data/indices/listperson.xml" out="${target}/@{lang}/listperson.html" style="./xslt/listperson.xsl">
+                <param name="lang" expression="@{lang}"/>
+                <param name="page" expression="listperson.html"/>
+            </saxon>
+            <saxon in="./data/indices/listplace.xml" out="${target}/@{lang}/listplace.html" style="./xslt/listplace.xsl">
+                <param name="lang" expression="@{lang}"/>
+                <param name="page" expression="listplace.html"/>
+            </saxon>
+            <saxon in="./data/indices/listorg.xml" out="${target}/@{lang}/listorg.html" style="./xslt/listorg.xsl">
+                <param name="lang" expression="@{lang}"/>
+                <param name="page" expression="listorg.html"/>
+            </saxon>
+            <saxon in="./data/indices/listbibl.xml" out="${target}/@{lang}/listbibl.html" style="./xslt/listbibl.xsl">
+                <param name="lang" expression="@{lang}"/>
+                <param name="page" expression="listbibl.html"/>
+            </saxon> -->
+        </sequential>
+    </macrodef>
+
+    <!-- responsive image versions + html/img/images.xml, read by the tei:graphic template -->
+    <exec executable="node" failonerror="true">
+        <arg value="tsscripts/utils/images.ts"/>
+    </exec>
+
+    <delete includeemptydirs="true" quiet="true">
+        <fileset dir="${target}" includes="*.html,de/**,en/**"/>
+    </delete>
+
+    <pages lang="de"/>
+    <pages lang="en"/>
+
+    <!-- language-neutral files in the root -->
+    <saxon in="${index}" out="${target}/index.html" style="./xslt/redirect.xsl"/>
+    <!-- GitHub Pages serves html/404.html for every missing path -->
+    <saxon in="${index}" out="${target}/404.html" style="./xslt/404.xsl">
+        <param name="page" expression="index.html"/>
+    </saxon>
+    <!-- <saxon in="./data/indices/listperson.xml" out="${target}/beacon.txt" style="./xslt/beacon.xsl"/> -->
+    <saxon in="./data/imprint.xml" out="${target}/api.xml" style="./xslt/api.xsl"/>
+
+    <replace dir="${target}" value="" encoding="UTF-8">
+        <include name="**/*.html"/>
+        <exclude name="vendor/**"/>
+        <replacetoken> xmlns=""</replacetoken>
+    </replace>
+    <replace dir="${target}" value="" encoding="UTF-8">
+        <include name="**/*.html"/>
+        <exclude name="vendor/**"/>
+        <replacetoken>xmlns:tei="http://www.tei-c.org/ns/1.0"</replacetoken>
+    </replace>
+    <replace dir="${target}" value="" encoding="UTF-8">
+        <include name="**/*.html"/>
+        <exclude name="vendor/**"/>
+        <replacetoken>xmlns="http://www.w3.org/1999/xhtml"</replacetoken>
+    </replace>
+    <copy todir="${target}" flatten="true">
+        <fileset dir="./data/">
+            <include name="**/*.xml"/>
+        </fileset>
+    </copy>
+</project>

@@ -1,0 +1,34 @@
+key,de,en
+navbar__project,Projekt,Project
+navbar__about,Über das Projekt,About the project
+navbar__toc,Editionseinheiten,Edition units
+navbar__nofacs,Ohne Faksimiles,Without facsimiles
+navbar__withfacs,Mit Faksimiles,With facsimiles
+navbar__register,Register,Register
+navbar__persons,Personen,Person
+navbar__places,Orte,Places
+navbar__orgs,Organisationen,Institutions
+navbar__works,Werke,Works
+navbar__search,Suche,Search
+navbar__imprint,Impressum,Imprint
+navbar__toggle,Navigation ein-/ausblenden,Toggle navigation
+navbar__language,Sprache,Language
+language__name,Deutsch,English
+breadcrumb__label,Navigationspfad,Breadcrumb
+project__title,Karl Kraus: Der Hort der Republik – Digitale Genetische Edition,Karl Kraus: Der Hort der Republik – Digital Genetic Edition
+cite__heading,Zitiervorschlag,How to cite
+cite__editors, herausgegeben von Bernhard Oberreither,edited by Bernhard Oberreither
+alert__beta,Beta-Version,Beta version
+common__close,Schließen,Close
+page404__title,Seite nicht gefunden,Page not found
+page404__text,Die angeforderte Seite existiert nicht.,The requested page does not exist.
+page404__home,Zur Startseite,Go to the start page
+search__title,Volltextsuche,Full-text search
+search__filter,Filter,Filter
+search__facets,Facetten,Facets
+search__entities,Entitäten,Entities
+search__sort,Sortierung,Sorting
+noske__title,Linguistische Volltextsuche,Linguistic full-text search
+noske__reset,Zurücksetzen,Reset
+navbar__skip,Zum Inhalt springen,Skip to main content
+project__short_title,HdR Digitale Edition,HdR Digital Edition

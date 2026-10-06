@@ -1,0 +1,15 @@
+{
+	"css.validate": false,
+	"editor.codeActionsOnSave": {
+		"source.fixAll": "explicit"
+	},
+	"editor.defaultFormatter": "oxc.oxc-vscode",
+	"editor.formatOnSave": true,
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"files.eol": "\n",
+	"js/ts.preferences.preferTypeOnlyAutoImports": true,
+	"oxc.enable.oxfmt": true,
+	"stylelint.validate": ["css", "postcss", "tailwindcss"]
+}
