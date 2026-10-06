@@ -28,7 +28,7 @@
                 <xsl:call-template name="nav_bar"/>
                 <main id="main" tabindex="-1" class="flex grow flex-col">
                     <xsl:apply-templates select=".//tei:body/tei:figure"/>
-                    <div class="prose mx-auto max-w-5xl">
+                    <div class="prose mx-auto max-w-5xl px-4">
                         <h1 class="text-balance  xl:text-5xl"><xsl:value-of select="replace(i18n:t('project__title'),' – ', '&#160;– ')"/></h1>
                         <xsl:apply-templates select=".//tei:body/tei:div"/>
                     </div>
