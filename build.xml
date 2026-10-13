@@ -26,8 +26,12 @@
             <!-- <saxon style="./xslt/editions.xsl" basedir="./data/editions" destdir="${target}/@{lang}" includes="*.xml">
                 <param name="lang" expression="@{lang}"/>
             </saxon> -->
-            <saxon style="./xslt/meta.xsl" basedir="./data/meta" destdir="${target}/@{lang}" includes="*.xml" excludes="index.xml">
+            <saxon style="./xslt/meta.xsl" basedir="./data/meta" destdir="${target}/@{lang}" includes="*.xml" excludes="index.xml glossary.xml">
                 <param name="lang" expression="@{lang}"/>
+            </saxon>
+            <saxon in="./data/meta/glossary.xml" out="${target}/@{lang}/glossary.html" style="./xslt/glossary.xsl">
+                <param name="lang" expression="@{lang}"/>
+                <param name="page" expression="glossary.html"/>
             </saxon>
             <!-- <saxon in="${index}" out="${target}/@{lang}/toc.html" style="./xslt/toc.xsl">
                 <param name="lang" expression="@{lang}"/>

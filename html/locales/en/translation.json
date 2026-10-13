@@ -1,6 +1,7 @@
 {
     "navbar__project": "Project",
     "navbar__about": "About the project",
+    "navbar__glossary": "Glossary",
     "navbar__toc": "Edition units",
     "navbar__nofacs": "Without facsimiles",
     "navbar__withfacs": "With facsimiles",
