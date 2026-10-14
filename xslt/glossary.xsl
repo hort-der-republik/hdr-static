@@ -28,7 +28,7 @@
 
     <xsl:template match="/">
         <xsl:variable name="titles" select="/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title[@type = 'main']"/>
-        <xsl:variable name="doc_title" select="normalize-space($titles[@xml:lang = $lang])"/>
+        <xsl:variable name="doc_title" select="normalize-space($titles[@level = 'a'][@xml:lang = $lang])"/>
         <!-- the draft note, e.g. "Arbeitsfassung." -->
         <xsl:variable name="draft" select="/tei:TEI/tei:teiHeader/tei:revisionDesc[@status = 'draft']/tei:change[not(@xml:lang != $lang)][1]"/>
         <html class="h-full" lang="{$lang}">
