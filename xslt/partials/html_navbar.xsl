@@ -36,6 +36,9 @@
                                     <a class="block px-4 py-2 text-gray-900 no-underline hover:bg-gray-100" href="{$home}about.html"><xsl:value-of select="i18n:t('navbar__about')"/></a>
                                 </li>
                                 <li>
+                                    <a class="block px-4 py-2 text-gray-900 no-underline hover:bg-gray-100" href="{$home}glossary.html"><xsl:value-of select="i18n:t('navbar__glossary')"/></a>
+                                </li>
+                                <li>
                                     <a class="block px-4 py-2 text-gray-900 no-underline hover:bg-gray-100" href="{$home}imprint.html"><xsl:value-of select="i18n:t('navbar__imprint')"/></a>
                                 </li>
                             </ul>
