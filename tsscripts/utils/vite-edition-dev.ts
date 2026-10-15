@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import type { Plugin } from "vite";
@@ -9,6 +10,9 @@ import type { Plugin } from "vite";
 //   without a build
 // - changes in xslt/, data/ or translations.csv re-run ant, then the browser reloads
 // - any other change in html/ (e.g. other html/js/*.js files) reloads the browser
+// - the pages are read from disk on every request: Vite serves publicDir from a file list built
+//   at startup and kept up to date by the watcher, which ignores the pages (vite.config.ts), so
+//   pages missing at startup (ant deletes and rewrites them) would stay 404 until a restart
 export function editionDev(): Plugin {
 	return {
 		name: "edition-dev",
@@ -31,20 +35,38 @@ export function editionDev(): Plugin {
 				const url = new URL(req.url ?? "/", "http://localhost");
 				if (url.pathname === "/js/main.js") {
 					res.setHeader("Content-Type", "text/javascript");
+					// the injected styles take over from the <link> (see below), so drop it: otherwise
+					// rules removed during HMR would stay in effect until the next reload
 					res.end(
-						'import "/@vite/client";\nimport "/styles/index.css";\nimport "/tsscripts/main.ts";\n',
+						'import "/@vite/client";\nimport "/styles/index.css";\nimport "/tsscripts/main.ts";\n' +
+							'document.querySelector(\'link[rel="stylesheet"][href*="css/index.css"]\')?.remove();\n',
 					);
 					return;
 				}
 				if (url.pathname === "/css/index.css") {
-					// in dev the styles are injected by the /js/main.js response above
-					res.setHeader("Content-Type", "text/css");
-					res.end("");
-					return;
+					// the compiled CSS as a plain stylesheet, so the page renders styled right away instead
+					// of flashing unstyled until /js/main.js has injected the styles
+					req.url = "/styles/index.css?direct";
 				}
-				if (url.pathname.endsWith("/")) req.url = `${url.pathname}index.html${url.search}`;
-				next();
+				const pathname = url.pathname.endsWith("/") ? `${url.pathname}index.html` : url.pathname;
+				const page = pathname.endsWith(".html") ? readPage(pathname) : undefined;
+				if (!page) return next();
+				res.setHeader("Content-Type", "text/html; charset=utf-8");
+				res.setHeader("Cache-Control", "no-cache");
+				res.end(page);
 			});
+
+			// a page from html/, or undefined if it doesn't exist or the path leads outside html/;
+			// read synchronously, it's a small local file and only the dev server
+			function readPage(pathname: string): Buffer | undefined {
+				const file = path.join(htmlDir, decodeURIComponent(pathname));
+				if (!file.startsWith(htmlDir)) return undefined;
+				try {
+					return readFileSync(file);
+				} catch {
+					return undefined;
+				}
+			}
 
 			let reloadTimer: ReturnType<typeof setTimeout> | undefined;
 			const reload = () => {

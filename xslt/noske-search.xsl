@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:tei="http://www.tei-c.org/ns/1.0"
-    xmlns:i18n="urn:hdr-static:i18n"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    version="2.0"
-    exclude-result-prefixes="#all">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:i18n="urn:hdr-static:i18n"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0" exclude-result-prefixes="#all">
 
     <xsl:import href="./partials/html_navbar.xsl"/>
     <xsl:import href="./partials/html_head.xsl"/>
     <xsl:import href="./partials/html_footer.xsl"/>
     <xsl:import href="./partials/typesense_libs.xsl"/>
-    <xsl:output encoding="UTF-8" media-type="text/html" method="html" version="5.0" indent="yes" omit-xml-declaration="yes"/>
+    <xsl:output encoding="UTF-8" media-type="text/html" method="html" version="5.0" indent="yes"
+        omit-xml-declaration="yes"/>
 
     <xsl:template match="/">
         <xsl:variable name="doc_title" select="i18n:t('noske__title')"/>
@@ -43,19 +40,21 @@
                             <xsl:value-of select="$doc_title"/>
                         </h1>
                         <div>
-                            <div id="noske-search"></div>
+                            <div id="noske-search"/>
                             <div class="p-2 text-center" id="reset-button">
-                                <a href="noske-search.html" class="btn btn-primary"><xsl:value-of select="i18n:t('noske__reset')"/></a>
+                                <a href="noske-search.html" class="btn btn-primary">
+                                    <xsl:value-of select="i18n:t('noske__reset')"/>
+                                </a>
                             </div>
-                            <div id="noske-stats"></div>
-                            <div id="hitsbox"></div>
-                            <div id="noske-pagination" class="p-4"></div>
+                            <div id="noske-stats"/>
+                            <div id="hitsbox"/>
+                            <div id="noske-pagination" class="p-4"/>
                         </div>
                     </div>
                 </main>
                 <xsl:call-template name="html_footer"/>
-                <script src="{$base}js/noske-search.js" type="module"></script>
-    
+                <script src="{$base}js/noske-search.js" type="module"/>
+
             </body>
         </html>
     </xsl:template>

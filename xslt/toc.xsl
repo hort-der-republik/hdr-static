@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet 
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:tei="http://www.tei-c.org/ns/1.0"
-    xmlns:i18n="urn:hdr-static:i18n"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    version="2.0"
-    exclude-result-prefixes="#all">
-    
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:i18n="urn:hdr-static:i18n"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0" exclude-result-prefixes="#all">
+
     <xsl:import href="./partials/html_navbar.xsl"/>
     <xsl:import href="./partials/html_head.xsl"/>
     <xsl:import href="./partials/html_footer.xsl"/>
     <xsl:import href="./partials/tabulator_dl_buttons.xsl"/>
     <xsl:import href="./partials/tabulator_js.xsl"/>
     <xsl:import href="./partials/zotero.xsl"/>
-    <xsl:output encoding="UTF-8" media-type="text/html" method="html" version="5.0" indent="yes" omit-xml-declaration="yes"/>
+    <xsl:output encoding="UTF-8" media-type="text/html" method="html" version="5.0" indent="yes"
+        omit-xml-declaration="yes"/>
 
 
     <xsl:template match="/">
@@ -22,16 +19,16 @@
         <html class="h-full" lang="{$lang}">
             <head>
                 <xsl:call-template name="html_head">
-                    <xsl:with-param name="html_title" select="$doc_title"></xsl:with-param>
+                    <xsl:with-param name="html_title" select="$doc_title"/>
                 </xsl:call-template>
                 <xsl:call-template name="zoterMetaTags">
-                    <xsl:with-param name="pageId" select="$link"></xsl:with-param>
-                    <xsl:with-param name="zoteroTitle" select="$doc_title"></xsl:with-param>
+                    <xsl:with-param name="pageId" select="$link"/>
+                    <xsl:with-param name="zoteroTitle" select="$doc_title"/>
                 </xsl:call-template>
             </head>
-            
+
             <body class="flex min-h-full flex-col">
-            <xsl:call-template name="nav_bar"/>
+                <xsl:call-template name="nav_bar"/>
                 <main id="main" tabindex="-1" class="container flex grow flex-col gap-y-12 py-6">
                     <nav aria-label="{i18n:t('breadcrumb__label')}">
                         <ol class="breadcrumb">
@@ -46,11 +43,15 @@
                         </ol>
                     </nav>
                     <div>
-                        <h1><xsl:value-of select="$doc_title"/></h1>
+                        <h1>
+                            <xsl:value-of select="$doc_title"/>
+                        </h1>
                         <table id="myTable">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="20" tabulator-formatter="html" tabulator-headerSort="false" tabulator-download="false">#</th>
+                                    <th scope="col" width="20" tabulator-formatter="html"
+                                        tabulator-headerSort="false" tabulator-download="false"
+                                        >#</th>
                                     <th scope="col" tabulator-headerFilter="input">Titel</th>
                                     <th scope="col" tabulator-headerFilter="input">Dateinname</th>
                                 </tr>

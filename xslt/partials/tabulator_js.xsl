@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    exclude-result-prefixes="xs"
-    version="2.0">
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
     <xsl:template name="tabulator_js">
-        <link href="{$base}vendor/tabulator-tables/css/tabulator.min.css" rel="stylesheet"></link>
-        <script type="text/javascript" src="{$base}vendor/tabulator-tables/js/tabulator.min.js"></script>
-        <script src="{$base}tabulator-js/config.js"></script>
+        <link href="{$base}vendor/tabulator-tables/css/tabulator.min.css" rel="stylesheet"/>
+        <script type="text/javascript" src="{$base}vendor/tabulator-tables/js/tabulator.min.js"/>
+        <script src="{$base}tabulator-js/config.js"/>
         <script>
             var table = new Tabulator("#myTable", config);
             //trigger download of data.csv file
