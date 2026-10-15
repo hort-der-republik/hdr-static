@@ -27,6 +27,10 @@
 @utility container {
 	margin-inline: auto;
 	padding-inline: --spacing(4);
+	/* full width on phones and tablets: no narrower centred column (sm, md) below lg */
+	@variant max-lg {
+		max-width: none;
+	}
 }
 
 @layer base {
@@ -77,6 +81,10 @@
 		scroll-margin-top: --spacing(4);
 	}
 
+	/* no scrolling behind a modal dialog, e.g. the navigation drawer */
+	html:has(dialog:modal) {
+		overflow: hidden;
+	}
 	/* interactive map in listplace.xsl */
 	div#map {
 		height: 50vh;
@@ -133,9 +141,54 @@
 		list-style: none;
 		color: var(--color-gray-600);
 		& > li + li::before {
-			content: ">";
-			padding-inline-end: --spacing(2);
-			color: var(--color-gray-400);
+			content: "";
+			@apply icon-[lucide--chevron-right];
+			margin-inline-end: --spacing(2);
+			vertical-align: -0.125em;
+			color: var(--color-gray-500);
+		}
+	}
+
+	/* navigation drawer on small screens (html_navbar.xsl): a modal <dialog> sliding in from
+	   the end side */
+	.drawer {
+		margin: 0 0 0 auto;
+		width: min(20rem, 85vw);
+		height: 100dvh;
+		max-height: none;
+		padding: 0;
+		border: 0;
+		background-color: var(--color-white);
+		box-shadow: var(--shadow-xl);
+		translate: 100% 0;
+		transition:
+			translate 0.2s ease-out,
+			display 0.2s allow-discrete,
+			overlay 0.2s allow-discrete;
+		&[open] {
+			translate: 0 0;
+			@starting-style {
+				translate: 100% 0;
+			}
+		}
+		&::backdrop {
+			background-color: rgb(0 0 0 / 0);
+			transition:
+				background-color 0.2s,
+				display 0.2s allow-discrete,
+				overlay 0.2s allow-discrete;
+		}
+		&[open]::backdrop {
+			background-color: rgb(0 0 0 / 0.4);
+			@starting-style {
+				background-color: rgb(0 0 0 / 0);
+			}
+		}
+		@media (prefers-reduced-motion: reduce) {
+			&,
+			&::backdrop {
+				transition: none;
+			}
 		}
 	}
 

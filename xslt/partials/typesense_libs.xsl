@@ -5,8 +5,8 @@
     <xsl:template name="typesense_libs">
 
         <link rel="stylesheet" href="{$base}vendor/instantsearch-themes/algolia-min.css"/>
-        <script src="{$base}vendor/instantsearch/instantsearch.production.min.js"></script>
-        <script src="{$base}vendor/typesense-instantsearch-adapter/typesense-instantsearch-adapter.min.js"></script>
+        <script src="{$base}vendor/instantsearch/instantsearch.production.min.js"/>
+        <script src="{$base}vendor/typesense-instantsearch-adapter/typesense-instantsearch-adapter.min.js"/>
 
     </xsl:template>
 </xsl:stylesheet>

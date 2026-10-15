@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:tei="http://www.tei-c.org/ns/1.0"
-    exclude-result-prefixes="xs"
-    version="2.0">
-    
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tei="http://www.tei-c.org/ns/1.0"
+    exclude-result-prefixes="xs" version="2.0">
+
     <xsl:import href="./partials/params.xsl"/>
     <xsl:output encoding="UTF-8" method="xml"/>
-    
+
     <xsl:template match="/">
         <TEI xmlns="http://www.tei-c.org/ns/1.0">
             <teiHeader>
@@ -61,9 +58,12 @@
                                 <xsl:value-of select="current()/@xml:id"/>
                             </xsl:sort>
                             <xsl:variable name="xmlid" select="current()/@xml:id"/>
-                            <xsl:variable name="title" select="normalize-space(string-join(.//tei:titleStmt/tei:title[1]//text()))"/>
+                            <xsl:variable name="title"
+                                select="normalize-space(string-join(.//tei:titleStmt/tei:title[1]//text()))"/>
                             <item>
-                                <title><xsl:value-of select="$title"/></title>
+                                <title>
+                                    <xsl:value-of select="$title"/>
+                                </title>
                                 <ptr target="{$xmlid}"/>
                             </item>
                         </xsl:for-each>
@@ -71,16 +71,15 @@
                 </body>
             </text>
         </TEI>
-        
-        
-            <xsl:for-each
-                select="collection('../data/*/?select=*.xml')//tei:TEI">
-                <xsl:sort>
-                    <xsl:value-of select="current()/@xml:id"/>
-                </xsl:sort>
-                
-                
-            </xsl:for-each>
+
+
+        <xsl:for-each select="collection('../data/*/?select=*.xml')//tei:TEI">
+            <xsl:sort>
+                <xsl:value-of select="current()/@xml:id"/>
+            </xsl:sort>
+
+
+        </xsl:for-each>
     </xsl:template>
-    
+
 </xsl:stylesheet>

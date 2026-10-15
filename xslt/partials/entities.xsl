@@ -154,7 +154,7 @@
             </xsl:if>
         </dl>
     </xsl:template>
-    
+
     <xsl:template match="tei:place" name="place_detail">
         <dl>
             <dt>Ortsname</dt>
@@ -215,7 +215,7 @@
                 </dd>
             </xsl:if>
             <xsl:if test=".//tei:location">
-                
+
                 <dt>Längengrad</dt>
                 <dd>
                     <xsl:value-of select="tokenize(./tei:location[1]/tei:geo[1], '\s')[2]"/>

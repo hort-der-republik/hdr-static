@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:i18n="urn:hdr-static:i18n"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:i18n="urn:hdr-static:i18n"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-    exclude-result-prefixes="#all"
+    xmlns:math="http://www.w3.org/2005/xpath-functions/math" exclude-result-prefixes="#all"
     version="3.0">
     <xsl:template name="zoterMetaTags">
-        <xsl:param name="zoteroTitle" select="false()"></xsl:param>
-        <xsl:param name="pageId" select="''"></xsl:param>
-        <xsl:param name="customUrl" select="concat($base_url, $lang, '/')"></xsl:param>
+        <xsl:param name="zoteroTitle" select="false()"/>
+        <xsl:param name="pageId" select="''"/>
+        <xsl:param name="customUrl" select="concat($base_url, $lang, '/')"/>
         <xsl:variable name="fullUrl" select="concat($customUrl, $pageId)"/>
         <xsl:if test="$zoteroTitle">
             <meta name="citation_title" content="{$zoteroTitle}"/>

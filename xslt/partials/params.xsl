@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet
-    xmlns:tei="http://www.tei-c.org/ns/1.0"
+<xsl:stylesheet xmlns:tei="http://www.tei-c.org/ns/1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
     <xsl:param name="directory_name">hdr-static</xsl:param>
-    <xsl:param name="project_title">Karl Kraus: Der Hort der Republik – Digitale Genetische Edition</xsl:param>
+    <xsl:param name="project_title">Karl Kraus: Der Hort der Republik – Digitale Genetische
+        Edition</xsl:param>
     <xsl:param name="redmine_id">29149</xsl:param>
     <xsl:param name="project_short_title">HdR – Digital Edition</xsl:param>
     <xsl:param name="default_lang">de</xsl:param>
@@ -22,7 +22,8 @@
     <xsl:param name="lang" select="$default_lang"/>
     <!-- file name of the page being built (used for the language switch);
          defaults to the source file name, build.xml sets it for fixed outputs -->
-    <xsl:param name="page" select="replace(tokenize(document-uri(/), '/')[last()], '\.xml$', '.html')"/>
+    <xsl:param name="page"
+        select="replace(tokenize(document-uri(/), '/')[last()], '\.xml$', '.html')"/>
     <!-- start of the current language's pages -->
     <xsl:variable name="home" select="concat($base, $lang, '/')"/>
 </xsl:stylesheet>

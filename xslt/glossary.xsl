@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:tei="http://www.tei-c.org/ns/1.0"
-    xmlns:i18n="urn:hdr-static:i18n"
-    xmlns:gl="urn:hdr-static:glossary"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    version="2.0"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:i18n="urn:hdr-static:i18n"
+    xmlns:gl="urn:hdr-static:glossary" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0"
     exclude-result-prefixes="#all">
 
     <!-- data model glossary, rendered from data/meta/glossary.xml (a TEI dictionary: entry/form/sense/def/note) -->
@@ -13,7 +9,8 @@
     <xsl:import href="./partials/html_navbar.xsl"/>
     <xsl:import href="./partials/html_head.xsl"/>
     <xsl:import href="./partials/html_footer.xsl"/>
-    <xsl:output encoding="UTF-8" media-type="text/html" method="html" version="5.0" indent="yes" omit-xml-declaration="yes"/>
+    <xsl:output encoding="UTF-8" media-type="text/html" method="html" version="5.0" indent="yes"
+        omit-xml-declaration="yes"/>
 
     <xsl:key name="by-id" match="*[@xml:id]" use="@xml:id"/>
 
@@ -23,14 +20,19 @@
         <xsl:param name="id" as="xs:string"/>
         <xsl:param name="fallback" as="xs:string"/>
         <xsl:variable name="catDesc" select="key('by-id', $id, root($context))/tei:catDesc"/>
-        <xsl:sequence select="normalize-space(($catDesc[@xml:lang = $lang], $catDesc[not(@xml:lang)], $fallback)[1])"/>
+        <xsl:sequence
+            select="normalize-space(($catDesc[@xml:lang = $lang], $catDesc[not(@xml:lang)], $fallback)[1])"
+        />
     </xsl:function>
 
     <xsl:template match="/">
-        <xsl:variable name="titles" select="/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title[@type = 'main']"/>
-        <xsl:variable name="doc_title" select="normalize-space($titles[@level = 'a'][@xml:lang = $lang])"/>
+        <xsl:variable name="titles"
+            select="/tei:TEI/tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title[@type = 'main']"/>
+        <xsl:variable name="doc_title"
+            select="normalize-space($titles[@level = 'a'][@xml:lang = $lang])"/>
         <!-- the draft note, e.g. "Arbeitsfassung." -->
-        <xsl:variable name="draft" select="/tei:TEI/tei:teiHeader/tei:revisionDesc[@status = 'draft']/tei:change[not(@xml:lang != $lang)][1]"/>
+        <xsl:variable name="draft"
+            select="/tei:TEI/tei:teiHeader/tei:revisionDesc[@status = 'draft']/tei:change[not(@xml:lang != $lang)][1]"/>
         <html class="h-full" lang="{$lang}">
             <head>
                 <xsl:call-template name="html_head">
@@ -54,9 +56,13 @@
                         </ol>
                     </nav>
                     <div class="prose max-w-5xl">
-                        <h1><xsl:value-of select="$doc_title"/></h1>
+                        <h1>
+                            <xsl:value-of select="$doc_title"/>
+                        </h1>
                         <xsl:if test="$draft">
-                            <p class="text-gray-600"><xsl:value-of select="normalize-space($draft)"/></p>
+                            <p class="text-gray-600">
+                                <xsl:value-of select="normalize-space($draft)"/>
+                            </p>
                         </xsl:if>
                         <xsl:apply-templates select="/tei:TEI/tei:text/tei:body/tei:div"/>
                     </div>
@@ -78,17 +84,25 @@
     </xsl:template>
 
     <xsl:template match="tei:entry">
-        <xsl:variable name="lemma" select="(tei:form[@type = 'lemma'][@xml:lang = $lang], tei:form[@type = 'lemma'])[1]/tei:orth"/>
+        <xsl:variable name="lemma"
+            select="(tei:form[@type = 'lemma'][@xml:lang = $lang], tei:form[@type = 'lemma'])[1]/tei:orth"/>
         <xsl:variable name="notes" select="tei:note[not(@xml:lang != $lang)]"/>
         <section id="{@xml:id}" class="border-t border-gray-200 pt-6">
-            <h2><xsl:value-of select="normalize-space($lemma)"/></h2>
+            <h2>
+                <xsl:value-of select="normalize-space($lemma)"/>
+            </h2>
             <xsl:apply-templates select="tei:sense"/>
             <xsl:if test="$notes">
                 <dl>
                     <!-- one term/description pair per note type, in document order -->
                     <xsl:for-each-group select="$notes" group-by="@type">
-                        <xsl:variable name="label" select="gl:label(., concat('note-', current-grouping-key()), current-grouping-key())"/>
-                        <dt><xsl:value-of select="concat(upper-case(substring($label, 1, 1)), substring($label, 2))"/></dt>
+                        <xsl:variable name="label"
+                            select="gl:label(., concat('note-', current-grouping-key()), current-grouping-key())"/>
+                        <dt>
+                            <xsl:value-of
+                                select="concat(upper-case(substring($label, 1, 1)), substring($label, 2))"
+                            />
+                        </dt>
                         <dd class="break-words">
                             <xsl:apply-templates select="current-group()"/>
                         </dd>
@@ -131,14 +145,22 @@
     </xsl:template>
 
     <xsl:template match="tei:item">
-        <li><xsl:apply-templates/></li>
+        <li>
+            <xsl:apply-templates/>
+        </li>
     </xsl:template>
 
     <!-- mapping to an external concept: relation (@ana → taxonomy mappingRelations),
          sense it applies to (@corresp), certainty (@cert) -->
     <xsl:template match="tei:item[@ana or @corresp or @cert]">
-        <xsl:variable name="relations" select="for $r in tokenize(@ana, '\s+')[starts-with(., '#')] return gl:label(current(), substring($r, 2), substring($r, 2))"/>
-        <xsl:variable name="senses" select="for $s in tokenize(@corresp, '\s+')[starts-with(., '#')] return key('by-id', substring($s, 2))"/>
+        <xsl:variable name="relations" select="
+                for $r in tokenize(@ana, '\s+')[starts-with(., '#')]
+                return
+                    gl:label(current(), substring($r, 2), substring($r, 2))"/>
+        <xsl:variable name="senses" select="
+                for $s in tokenize(@corresp, '\s+')[starts-with(., '#')]
+                return
+                    key('by-id', substring($s, 2))"/>
         <li>
             <xsl:apply-templates/>
             <span class="text-gray-600">
@@ -165,10 +187,14 @@
         <code class="before:content-none after:content-none">&lt;<xsl:apply-templates/>&gt;</code>
     </xsl:template>
     <xsl:template match="tei:idno">
-        <code class="before:content-none after:content-none"><xsl:apply-templates/></code>
+        <code class="before:content-none after:content-none">
+            <xsl:apply-templates/>
+        </code>
     </xsl:template>
     <xsl:template match="tei:num">
-        <span class="whitespace-nowrap"><xsl:apply-templates/></span>
+        <span class="whitespace-nowrap">
+            <xsl:apply-templates/>
+        </span>
     </xsl:template>
 
     <!-- resources used for the mapping, below the entries -->
@@ -186,15 +212,21 @@
     </xsl:template>
 
     <xsl:template match="tei:listBibl/tei:head">
-        <h2><xsl:apply-templates/></h2>
+        <h2>
+            <xsl:apply-templates/>
+        </h2>
     </xsl:template>
 
     <!-- xml:lang on a bibl is the language of the cited resource, not of the page: show all of them -->
     <xsl:template match="tei:bibl" priority="11">
-        <li id="{@xml:id}"><xsl:apply-templates/></li>
+        <li id="{@xml:id}">
+            <xsl:apply-templates/>
+        </li>
     </xsl:template>
 
     <xsl:template match="tei:bibl/tei:title">
-        <cite class="italic"><xsl:apply-templates/></cite>
+        <cite class="italic">
+            <xsl:apply-templates/>
+        </cite>
     </xsl:template>
 </xsl:stylesheet>
