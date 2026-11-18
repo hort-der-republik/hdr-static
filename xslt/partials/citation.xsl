@@ -7,7 +7,7 @@
         <xsl:param name="customUrl" select="concat($base_url, $lang, '/')"/>
         <xsl:variable name="fullUrl" select="concat($customUrl, $pageId)"/>
         <div aria-labelledby="citation-label"
-            class="prose text-left text-sm border-gray-200 text-gray-700">
+            class="max-w-[80ch] text-left text-sm border-gray-200 text-gray-700">
             <dl>
                 <dt id="citation-label" class="mb-1 font-semibold text-gray-900">
                     <xsl:value-of select="i18n:t('cite__heading')"/>
