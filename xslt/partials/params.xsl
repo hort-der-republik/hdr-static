@@ -10,10 +10,9 @@
     <xsl:param name="github_url">https://github.com/hort-der-republik/hdr-static</xsl:param>
     <xsl:param name="html_title">HdR Digital Edition</xsl:param>
     <xsl:param name="project_logo">images/logo.png</xsl:param>
-    <xsl:param name="base_url">https://hort-der-republik.github.io/hdr-static/</xsl:param>
+    <xsl:param name="base_url">https://hdr.acdh-dev.oeaw.ac.at/</xsl:param>
     <xsl:param name="data_repo">https://github.com/hort-der-republik/hdr-para-texts</xsl:param>
-    <!-- path the site is served under, with trailing slash; ant -Dbase=/hdr-static/ -->
-    <xsl:param name="base">/</xsl:param>
+   	<xsl:param name="base">../</xsl:param>
     <!-- cache buster for the Vite bundle; ant -Dversion=... -->
     <xsl:param name="version">dev</xsl:param>
     <!-- languages the site is built in; pages go to html/{lang}/ -->
