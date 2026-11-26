@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="tei2html">
-    <!-- optional: ant -Dbase=/hdr-static/ -Dversion=<git sha>; defaults are set in xslt/partials/params.xsl -->
-    <property name="index" value="./data/meta/index.xml"/>
+   <!-- optional: ant -Dversion=<git sha>; defaults are set in xslt/partials/params.xsl -->
+	  <property name="index" value="./data/meta/index.xml"/>
     <property name="target" value="./html"/>
     <property name="target_xml" value="./html/xml-view"/>
 
@@ -10,7 +10,6 @@
         <xslt force="true">
             <factory name="net.sf.saxon.TransformerFactoryImpl"/>
             <classpath location="${basedir}/saxon/saxon9he.jar"/>
-            <param name="base" expression="${base}" if="base"/>
             <param name="version" expression="${version}" if="version"/>
         </xslt>
     </presetdef>
@@ -85,6 +84,7 @@
     <!-- GitHub Pages serves html/404.html for every missing path -->
     <saxon in="${index}" out="${target}/404.html" style="./xslt/404.xsl">
         <param name="page" expression="index.html"/>
+				<param name="base" expression="/"/>
     </saxon>
     <!-- <saxon in="./data/indices/listperson.xml" out="${target}/beacon.txt" style="./xslt/beacon.xsl"/> -->
     <saxon in="./data/imprint.xml" out="${target}/api.xml" style="./xslt/api.xsl"/>
