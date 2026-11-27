@@ -6,10 +6,10 @@
 			<li class="shrink-0">
 				<div class="w-fit max-w-full">
 					<xsl:variable name="fwf-logo-path" select="'images/logos/fwf/'||$lang||'/'"/>
-					<xsl:variable name="fwf-logo" select="uri-collection('../../html/'||$fwf-logo-path||'?select=*')||'#svgView(viewBox(70 62 640 124.1))'
+					<xsl:variable name="fwf-logo" select="uri-collection('../../html/'||$fwf-logo-path||'?select=*')
 					"/>
 					<a href="{i18n:t('fwf__url')}">
-						<img class="block  w-full h-15 object-contain" alt="" src="{$base||$fwf-logo-path||tokenize($fwf-logo,'/')[last()]}"/>
+						<img class="block  w-full h-22 object-contain" alt="" src="{$base||$fwf-logo-path||tokenize($fwf-logo,'/')[last()]}"/>
 						<span class="sr-only"><xsl:value-of select="i18n:t('fwf__name')"/></span>
 					</a>
 						<p class="prose text-xs  [contain:inline-size]"><xsl:value-of select="i18n:t('fwf__tagline')"/></p>
