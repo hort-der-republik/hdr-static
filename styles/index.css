@@ -12,6 +12,7 @@
 @theme {
 	--color-primary: var(--color-blue-700);
 	--color-primary-hover: var(--color-blue-800);
+	--breakpoint-3xl: 150rem;
 }
 
 @utility prose {

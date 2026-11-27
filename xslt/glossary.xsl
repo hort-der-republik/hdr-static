@@ -43,29 +43,31 @@
             <body class="flex min-h-full flex-col">
                 <xsl:call-template name="nav_bar"/>
                 <main id="main" tabindex="-1" class="container flex grow flex-col gap-y-12 py-6">
-                    <nav aria-label="{i18n:t('breadcrumb__label')}">
-                        <ol class="breadcrumb">
-                            <li>
-                                <a href="index.html">
-                                    <xsl:value-of select="i18n:t('project__short_title')"/>
-                                </a>
-                            </li>
-                            <li aria-current="page">
-                                <xsl:value-of select="$doc_title"/>
-                            </li>
-                        </ol>
-                    </nav>
-                    <div class="prose max-w-5xl">
-                        <h1>
-                            <xsl:value-of select="$doc_title"/>
-                        </h1>
-                        <xsl:if test="$draft">
-                            <p class="text-gray-600">
-                                <xsl:value-of select="normalize-space($draft)"/>
-                            </p>
-                        </xsl:if>
-                        <xsl:apply-templates select="/tei:TEI/tei:text/tei:body/tei:div"/>
-                    </div>
+                    <div class="mx-auto flex w-full max-w-5xl flex-col gap-y-12 xl:px-4">
+											<nav aria-label="{i18n:t('breadcrumb__label')}">
+													<ol class="breadcrumb">
+															<li>
+																	<a href="index.html">
+																			<xsl:value-of select="i18n:t('project__short_title')"/>
+																	</a>
+															</li>
+															<li aria-current="page">
+																	<xsl:value-of select="$doc_title"/>
+															</li>
+													</ol>
+											</nav>
+											<div class="prose max-w-5xl">
+													<h1>
+															<xsl:value-of select="$doc_title"/>
+													</h1>
+													<xsl:if test="$draft">
+															<p class="text-gray-600">
+																	<xsl:value-of select="normalize-space($draft)"/>
+															</p>
+													</xsl:if>
+													<xsl:apply-templates select="/tei:TEI/tei:text/tei:body/tei:div"/>
+											</div>
+										</div>
                 </main>
                 <xsl:call-template name="html_footer">
                     <xsl:with-param name="pageId" select="$page"/>

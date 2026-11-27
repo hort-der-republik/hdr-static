@@ -24,7 +24,9 @@
             <body class="flex min-h-full flex-col">
                 <xsl:call-template name="nav_bar"/>
                 <main id="main" tabindex="-1" class="flex grow flex-col">
-                    <xsl:apply-templates select=".//tei:body/tei:figure"/>
+                    <xsl:apply-templates select=".//tei:body/tei:figure">
+											 <xsl:with-param name="full-width" select="true()" tunnel="yes"/>
+										</xsl:apply-templates>
                     <div class="prose mx-auto max-w-5xl px-4">
                         <h1 class="text-balance  xl:text-5xl">
                             <xsl:value-of
