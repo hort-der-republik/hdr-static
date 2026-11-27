@@ -11,7 +11,7 @@
             <xsl:value-of select="i18n:t('navbar__skip')"/>
         </a>
         <header class="py-4 border-b border-gray-200">
-            <div class="container flex flex-wrap items-center gap-x-4">
+            <div class="container flex flex-wrap items-center gap-x-4 px-8">
                 <a
                     class="me-auto py-2 text-xl text-gray-900 no-underline hover:text-gray-700 sm:me-0"
                     href="{$home}index.html">

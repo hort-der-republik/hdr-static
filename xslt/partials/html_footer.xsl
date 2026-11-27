@@ -8,7 +8,7 @@
         <!-- file name of the current page, cited in the footer; empty cites the language start page -->
         <xsl:param name="pageId" select="''"/>
         <footer class="py-4 mt-8 border-t border-gray-200">
-				<div class="container py-8 flex flex-col gap-y-12">
+				<div class="container py-8 px-8 flex flex-col gap-y-12">
 							<xsl:call-template name="footer_logos"/>
             <div
                 class="flex flex-col items-center gap-12 lg:flex-row justify-between">

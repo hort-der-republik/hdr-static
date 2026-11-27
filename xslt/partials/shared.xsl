@@ -40,10 +40,11 @@
         </span>
     </xsl:template>
     <xsl:template match="tei:figure">
-        <figure class="mb-6">
+				<xsl:param name="full-width" as="xs:boolean" select="false()" tunnel="yes"/>
+        <figure class="mb-6 {if ($full-width) then ' mx-auto w-full max-w-(--breakpoint-3xl)' else ''}">
             <xsl:apply-templates select="tei:graphic"/>
             <xsl:if test="tei:figDesc">
-                <figcaption class="ps-2 mt-2 text-sm text-gray-600">
+                <figcaption class="ps-4 mt-2 text-sm text-gray-600">
                     <xsl:apply-templates select="tei:figDesc"/>
                 </figcaption>
             </xsl:if>
@@ -57,9 +58,11 @@
                 ()"/>
     <!-- rendered width of an image spanning the content column: .container width minus its padding -->
     <xsl:variable name="image-sizes"
-        select="'(min-width: 96rem) 94rem, (min-width: 80rem) 78rem, (min-width: 64rem) 62rem, (min-width: 48rem) 46rem, (min-width: 40rem) 38rem, calc(100vw - 2rem)'"/>
+    select="'(min-width: 96rem) 94rem, (min-width: 80rem) 78rem, (min-width: 64rem) 62rem, calc(100vw - 2rem)'"/>
+
 
     <xsl:template match="tei:graphic">
+				<xsl:param name="full-width" as="xs:boolean" select="false()" tunnel="yes"/>
         <xsl:variable name="name" select="tokenize(@url, '/')[last()]"/>
         <xsl:variable name="image" select="$image-manifest/images/image[@name = $name]"/>
         <!-- the first image of a page is usually in view right away: load it eagerly and early -->
@@ -76,7 +79,7 @@
                 <img
                     src="{$base}img/{($image/variant[xs:integer(@width) ge 1280], $image/variant)[1]/@file}"
                     srcset="{string-join($image/variant/concat($base, 'img/', @file, ' ', @width, 'w'), ', ')}"
-                    sizes="{$image-sizes}" width="{$image/@width}" height="{$image/@height}" alt=""
+                    sizes="{if ($full-width) then '(min-width: 150rem) 150rem, 100vw' else $image-sizes}" width="{$image/@width}" height="{$image/@height}" alt=""
                     class="h-auto max-w-full" loading="{if ($first) then 'eager' else 'lazy'}"
                     fetchpriority="{if ($first) then 'high' else 'auto'}">
                     <xsl:sequence select="$style"/>

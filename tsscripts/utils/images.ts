@@ -18,7 +18,7 @@ const SOURCE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".tif", ".t
 const COPY_EXTENSIONS = new Set([".svg"]);
 
 // target widths in px; widths above the source width are skipped, the source width is always added
-const WIDTHS = [640, 1280, 1920];
+const WIDTHS = [640, 1280, 1920, 2560, 3840];
 const WEBP_QUALITY = 78;
 
 interface Variant {
